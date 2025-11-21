@@ -16,8 +16,17 @@ PYTHON_INTERPRETER = python
 requirements:
 	uv sync
 	
+.PHONY: train
+train:
+	python -m product_image_quality_scoring.modeling.train --config product_image_quality_scoring/train_config.yaml
 
+.PHONY: serve
+serve:
+	uvicorn product_image_quality_scoring.modeling.predict:app --host 0.0.0.0 --port 8000 --reload
 
+.PHONY: flow
+flow:
+	python -m product_image_quality_scoring.pipelines.prefect_flows
 
 ## Delete all compiled Python files
 .PHONY: clean
