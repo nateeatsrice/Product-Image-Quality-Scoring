@@ -1,15 +1,10 @@
 # Product Image Quality Scoring
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
-
 An end-to-end machine learning pipeline that scores product image quality using a deep learning model. Built with PyTorch, Prefect, MLflow, and Docker.
 
 ## Project Organization
 
 ```
-├── LICENSE            <- Open-source license if one is chosen
 ├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
 ├── README.md          <- The top-level README for developers using this project.
 ├── data
@@ -34,11 +29,6 @@ An end-to-end machine learning pipeline that scores product image quality using 
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
 └── product_image_quality_scoring   <- Source code for use in this project.
     │
     ├── __init__.py             <- Makes product_image_quality_scoring a Python module
@@ -49,13 +39,32 @@ An end-to-end machine learning pipeline that scores product image quality using 
     │
     ├── features.py             <- Code to create features for modeling
     │
+    ├── plots.py                <- Code to create visualizations
+    │
     ├── modeling                
     │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
+    │   ├── model.py            <- PyTorch CNN/ViT model architecture         
+    │   ├── loss.py             <- MSE/MAE loss definitions
+    │   ├── metrics.py          <- evaluation metrics (MSE, SSIM, etc.) 
+    │   ├── train.py            <- training loop
+    │   └── predict.py          <- inference utilities
     │
-    └── plots.py                <- Code to create visualizations
+    ├── api                
+    │   ├── __init__.py 
+    │   └── server.py           <- FastAPI inference API         
+    │
+    ├── pipelines                
+    │   ├── __init__.py 
+    │   ├── flows/        
+    │   │   ├── training_flow.py   <- Prefect training pipeline
+    │   │   └── inference_flow.py  <- Prefect batch inference
+    │   └── deployment/            <- Prefect blocks/deployments
+    │
+    └── tracking/
+        ├── __init__.py
+        ├── mlflow_utils.py           <- MLflow experiment setup
+        └── logger.py                 <- unified logging (loguru)
+    
 ```
-
 --------
 

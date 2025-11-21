@@ -1,0 +1,1 @@
+# PyTorch CNN/ViT model architectures for image quality scoring
